@@ -5,15 +5,23 @@ const bodyParser = require('body-parser');
 const { MongoClient, ObjectId } = require('mongodb');
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = 5000;
+
+// Configuration CORS plus précise
+app.use(cors({
+  origin: 'http://localhost:3000',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type']
+}));
+
+// Middleware pour parser le JSON
+app.use(bodyParser.json());
 
 // Configuration de la connexion MongoDB
 const MONGO_URI = "mongodb+srv://matches:8AJ60qlq9Horkb4T@cluster0.2qazv.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 const DB_NAME = 'football_db';
 const COLLECTION_NAME = 'matches';
 
-
-app.use(cors());
 
 // Connexion à MongoDB
 let db;
