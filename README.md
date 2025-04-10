@@ -48,7 +48,9 @@ Application-client-server/
 │   ├── index.js          # Point d'entrée de l'API
 
 │   └── package.json      # Dépendances et scripts
+
 │
+
 ├── frontend/             # Application React
 
 │   ├── public/           # Fichiers statiques
@@ -64,13 +66,17 @@ Application-client-server/
 │   ├── Dockerfile        # Configuration Docker pour le frontend
 
 │   └── package.json      # Dépendances et scripts
+
 │
+
 ├── .github/              # Configuration GitHub
 
 │   └── workflows/        # Workflows GitHub Actions
 
 │       └── ci.yml        # Pipeline CI/CD
+
 │
+
 ├── docker-compose.yml    # Configuration Docker Compose
 
 └── README.md             # Documentation
