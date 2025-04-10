@@ -27,3 +27,16 @@ tape npm install
 cd server
 
 npm test
+
+
+Voici un aperçu des tests passés avec succès :
+
+![Tests réussis](images/test_reussie.PNG)
+
+Ceci est la base de donnés avant le test
+
+![Tests réussis](images/BD_avant_test.PNG)
+
+et quand je lancer le test les matche que j'ai ajouter dans le test sont ajouter dans la base de donné
+
+![Tests réussis](images/BD_apres_test.PNG)
