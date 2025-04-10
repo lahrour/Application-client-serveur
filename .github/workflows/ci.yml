@@ -26,47 +26,41 @@ jobs:
       # 3. Installation des dépendances pour backend
       - name: Install backend dependencies
         run: npm install
-        working-directory: ./backend  # Change le chemin si nécessaire
+        working-directory: ./server  # Chemin mis à jour vers le répertoire "server"
 
       # 4. Lancer les tests pour backend
       - name: Run backend tests
         run: npm test
-        working-directory: ./backend
+        working-directory: ./server  # Chemin mis à jour vers le répertoire "server"
 
       # 5. Build Docker image pour backend
       - name: Build backend Docker image
-        run: docker build -t lahrour/mon-backend:latest ./server
-        working-directory: ./server  # Change le chemin si nécessaire
+        run: docker build -t lahrour/mon-backend:latest ./server  # Chemin mis à jour vers le répertoire "server"
 
       # 6. Push Docker image pour backend
       - name: Login to DockerHub (Backend)
         uses: docker/login-action@v3
         with:
           username: lahrour
-          password: Simo1234@ 
+          password: Simo1234"  # Utilisation d'un secret pour éviter de hardcoder le mot de passe
 
       - name: Push backend Docker image to Docker Hub
         run: docker push lahrour/mon-backend:latest
 
-
-
       # 7. Installation des dépendances pour frontend
       - name: Install frontend dependencies
         run: npm install
-        working-directory: ./frontend  # Change le chemin si nécessaire
+        working-directory: ./client  # Chemin vers le répertoire "client"
 
       # 8. Lancer les tests pour frontend
       - name: Run frontend tests
         run: npm test
-        working-directory: ./frontend
+        working-directory: ./client  # Chemin vers le répertoire "client"
 
       # 9. Build Docker image pour frontend
       - name: Build frontend Docker image
-        run: docker build -t lahrour/mon-frontend:latest ./client
-        working-directory: ./client  # Change le chemin si nécessaire
-
+        run: docker build -t lahrour/mon-frontend:latest ./client  # Chemin vers le répertoire "client"
 
       # 10. Push Docker image pour frontend
       - name: Push frontend Docker image to Docker Hub
         run: docker push lahrour/mon-frontend:latest
-
