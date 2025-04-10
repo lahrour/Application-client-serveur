@@ -1,1 +1,72 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - main  # Déclenche le workflow sur un push vers la branche principale
+  pull_request:
+    branches:
+      - main  # Déclenche aussi sur une PR vers main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest  # Utilise une machine Ubuntu pour exécuter les jobs
+
+    steps:
+      # 1. Checkout du repo
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # 2. Setup de Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'  # Change la version si tu en utilises une autre
+
+      # 3. Installation des dépendances pour backend
+      - name: Install backend dependencies
+        run: npm install
+        working-directory: ./backend  # Change le chemin si nécessaire
+
+      # 4. Lancer les tests pour backend
+      - name: Run backend tests
+        run: npm test
+        working-directory: ./backend
+
+      # 5. Build Docker image pour backend
+      - name: Build backend Docker image
+        run: docker build -t lahrour/mon-backend:latest ./server
+        working-directory: ./server  # Change le chemin si nécessaire
+
+      # 6. Push Docker image pour backend
+      - name: Login to DockerHub (Backend)
+        uses: docker/login-action@v3
+        with:
+          username: lahrour
+          password: Simo1234@ 
+
+      - name: Push backend Docker image to Docker Hub
+        run: docker push lahrour/mon-backend:latest
+
+
+
+      # 7. Installation des dépendances pour frontend
+      - name: Install frontend dependencies
+        run: npm install
+        working-directory: ./frontend  # Change le chemin si nécessaire
+
+      # 8. Lancer les tests pour frontend
+      - name: Run frontend tests
+        run: npm test
+        working-directory: ./frontend
+
+      # 9. Build Docker image pour frontend
+      - name: Build frontend Docker image
+        run: docker build -t lahrour/mon-frontend:latest ./client
+        working-directory: ./client  # Change le chemin si nécessaire
+
+
+      # 10. Push Docker image pour frontend
+      - name: Push frontend Docker image to Docker Hub
+        run: docker push lahrour/mon-frontend:latest
 
